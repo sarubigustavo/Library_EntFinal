@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_head %}
+<title>About</title>
+{% endblock title_head %}
+
+{% block navigation_menu %}
+<!-- <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"> -->
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
+    <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link">Books</a></li>
+    <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
+    <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Users</a></li>
+</ul>
+
+<div class="col-md-3 text-end">
+    <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
+    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+    <button type="button" class="btn btn-outline-primary">Sign-up</button>
+  </div>
+{% endblock navigation_menu %}
+
+{% block h1_header %}
+About me
+{% endblock h1_header %}
+
+{% block content %}
+<div 
+style="display: flex; 
+align-content: center; width: 700px;
+height: 200px; margin: auto">
+<img src={% static "assets/img/GSARUBI_Light_Centered.jpg" %} class="img-thumbnail" alt="..." >
+<p class="text-center text-wrap" style="width: 40rem; padding:20px">
+    Mi nombre es Gustavo Sarubi, Lic en sistemas, y desarrollador de este sitio.  
+    Trabajo en sistemas hace 25 años siempre trabajando para conocidas multinacionales como: IBM, HP; EXXONMobil, JP Morgan, entre otras. 
+    Me pueden contactar en mi mail personal: sarubigustavo@gmail.com 
+</p>
+</div>
+{% endblock content %}
