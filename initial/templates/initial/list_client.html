@@ -36,7 +36,11 @@ Client List
 </form>
 
 {%for client in listClient %}
-<li>LastName: {{client.lastname}} - FirstName: {{client.firstname}} - Dni: {{client.dni}}</li>
+{% comment "" %}<li>LastName: {{client.lastname}} - FirstName: {{client.firstname}} - Dni: {{client.dni}}</li>{% endcomment %}
+<li>
+    {{client}}
+    <a href={% url 'initial:client_delete' client.id %}><button>Delete</button></a>
+</li>
 {%endfor%}
 
 {% endblock content %}

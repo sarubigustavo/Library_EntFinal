@@ -30,7 +30,11 @@ User List
 </form>
 
 {%for user in listUser %}
-<li>Fullname: {{user.fullname}} - UserName: {{user.username}} - UserPassword: {{user.userpass}}</li>
+{% comment "" %}<li>Fullname: {{user.fullname}} - UserName: {{user.username}} - UserPassword: {{user.userpass}}</li>{% endcomment %}
+<li>
+    {{user}}
+    <a href={% url 'initial:user_delete' user.id %}><button>Delete</button></a>
+</li>
 {%endfor%}
 
 {% endblock content %}

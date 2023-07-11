@@ -36,7 +36,11 @@ Book List
 </form>
 
 {%for book in listBook %}
-<li>Title: {{book.title}} - Author: {{book.author}} - Isbn: {{book.isbn}} - Edition: {{book.edition}}</li>
+{% comment "" %}<li>Title: {{book.title}} - Author: {{book.author}} - Isbn: {{book.isbn}} - Edition: {{book.edition}}</li>{% endcomment %}
+<li>
+    {{book}}
+    <a href={% url 'initial:book_delete' book.id %}><button>Delete</button></a>
+</li>
 {%endfor%}
 
 {% endblock content %}

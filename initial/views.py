@@ -38,6 +38,11 @@ def listBook(request):
     formBook = FindBookForm()
     return render(request, 'initial/list_book.html', {'formBook': formBook, 'listBook': listBook})
     
+def deleteBook(request, book_id):
+    book = Book.objects.get(id=book_id)
+    book.delete()
+    return redirect('initial:book_list')
+    
 #Client
 def createClient(request):
     #msgLabel = ''
@@ -65,6 +70,11 @@ def listClient(request):
     formClient = FindClientForm()
     return render(request, 'initial/list_client.html', {'formClient': formClient, 'listClient': listClient})
 
+def deleteClient(request, client_id):
+    client = Client.objects.get(id=client_id)
+    client.delete()
+    return redirect('initial:client_list')
+
 #User
 def createUser(request):
     #msgLabel = ''
@@ -91,3 +101,8 @@ def listUser(request):
 
     formUser = FindUserForm()
     return render(request, 'initial/list_user.html', {'formUser': formUser, 'listUser': listUser})
+
+def deleteUser(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect('initial:user_list')
