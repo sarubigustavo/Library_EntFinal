@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
 
 {% block title_head %}
-<title>Initial</title>
+<title>User Login</title>
 {% endblock title_head %}
 
 {% block navigation_menu %}
-<!-- <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"> -->
 <ul class="nav nav-pills">
-    <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link active" aria-current="page">Initial</a></li>
+    <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
     <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link" >Books</a></li>
     <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
     <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Users</a></li>
 </ul>
 
 <div class="col-md-3 text-end">
+    <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button> <a href={% url 'user:user_login' %}></a>--> 
     <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
-    <a href={% url 'user:user_login' %}><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+    <button type="button" class="btn btn-outline-primary me-2 active">Login</button>
     <button type="button" class="btn btn-outline-primary">Sign-up</button>
   </div>
 {% endblock navigation_menu %}
 
 {% block h1_header %}
-Welcome to the Library
+User Login
 {% endblock h1_header %}
 
 {% block content %}
-<p>
-    Welcome Library page
-</p>
+<form action={% url 'user:user_login' %} method="post">
+    {% csrf_token %}
+    <table>
+        {{formUser}}
+    </table>
+    <button>Login</button>
+</form>
+
 {% endblock content %}

@@ -21,10 +21,11 @@ La aplicacion permite crear registros de cada entidad de forma independiente.
 5) Link al Video: https:\\
 6) Pagina acerca de mi: Link 'About' en footer de paginas (\template\initial\about.html) 
 7) Vista de listados: Book, Client y Users con sus respectivos crud + detail
-8) Imagen y richfield en la clase Book 
-9) Forms utilizando herencia de clases para Book, Client, User  y su respectivo metodo para buscar
+8) Clases Basadas en Vistas: Book_detail, Client_detail, Client_update, User_detail y User_update
+9) Imagen y richfield en la clase Book 
+10) Forms utilizando herencia de clases para Book, Client, User  y su respectivo metodo para buscar
 
 # Instalacion:
-1) Clonar un proyecto de git account a mi pc (https): "git clone https://github.com/sarubigustavo/Python_Coderhouse.git"
+1) Clonar un proyecto de git account a mi pc (https): "git clone https://github.com/sarubigustavo/Library_EntFinal.git"
 2) Abre el vscode en este proyecto: "code -r [folderName]"
 3) Abrir terminal en VScode y para correr el servicio ejecutar: "python manage.py runserver"
