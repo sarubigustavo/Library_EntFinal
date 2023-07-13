@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title_head %}
-<title>Clients</title>
+<title>Client Update</title>
 {% endblock title_head %}
 
 {% block navigation_menu %}
@@ -20,34 +20,15 @@
 {% endblock navigation_menu %}
 
 {% block h1_header %}
-Client List
+Client Update:  {{client.lastname}}, {{client.Firstname}}
 {% endblock h1_header %}
 
 {% block content %}
-<button>
-    <a class="navbar-brand" href={% url 'initial:client_create' %}>Create client</a>
-</button>
-
-<!--<p>{{msgLabel}}</p>-->
-
-<form action="" method="get">
-    {{formClient}}
-    <button>Find</button>
+<form action={% url 'initial:client_update' client.id %} method="post">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <button>Update</button>
 </form>
-
-{% if listClient %}
-    {%for client in listClient %}
-    {% comment "" %}<li>LastName: {{client.lastname}} - FirstName: {{client.firstname}} - Dni: {{client.dni}}</li>{% endcomment %}
-    <li>
-        {{client}}
-        <a href={% url 'initial:client_detail' client.id %}><button>Detail</button></a>
-        <a href={% url 'initial:client_delete' client.id %}><button>Delete</button></a>
-        <a href={% url 'initial:client_update' client.id %}><button>Update</button></a>
-    </li>
-    {%endfor%}
-{% else %}
-    <p>No se encontraron registros.</p>
-{% endif %}
-
-
 {% endblock content %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title_head %}
-<title>Books</title>
+<title>Book Detail</title>
 {% endblock title_head %}
 
 {% block navigation_menu %}
@@ -20,33 +20,12 @@
 {% endblock navigation_menu %}
 
 {% block h1_header %}
-Book List
+Book: {{book.title}}
 {% endblock h1_header %}
 
 {% block content %}
-<button>
-    <a class="navbar-brand" href={% url 'initial:book_create' %}>Create book</a>
-</button>
-
-<!--<p>{{msgLabel}}</p>-->
-
-<form action="" method="get">
-    {{formBook}}
-    <button>Find</button>
-</form>
-
-{% if listBook %}
-    {%for book in listBook %}
-    {% comment "" %}<li>Title: {{book.title}} - Author: {{book.author}} - Isbn: {{book.isbn}} - Edition: {{book.edition}}</li>{% endcomment %}
-    <li>
-        {{book}}
-        <a href={% url 'initial:book_detail' book.id %}><button>Detail</button></a>
-        <a href={% url 'initial:book_delete' book.id %}><button>Delete</button></a>
-        <a href={% url 'initial:book_update' book.id %}><button>Update</button></a>
-    </li>
-    {%endfor%}
-{% else %}
-    <p>No se encontraron registros.</p>
-{% endif %}
-
+<li>Isbn: {{book.isbn}}</li>
+<li>Title: {{book.title}}</li>
+<li>Author: {{book.author}}</li>
+<li>Edition: {{book.edition}}</li>
 {% endblock content %}

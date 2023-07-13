@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect
 #from django.http import HttpResponse
-from initial.forms import CreateBookForm, FindBookForm, CreateClientForm, FindClientForm, CreateUserForm, FindUserForm
+
+from initial.forms import CreateBookForm, UpdateBookForm, FindBookForm, CreateClientForm, UpdateClientForm, FindClientForm, CreateUserForm, UpdateUserForm, FindUserForm
 from initial.models import Book, Client, User
+
+from django.views.generic.edit import UpdateView #, DeleteView, CreateView
+from django.views.generic.detail import DetailView
+
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -43,6 +49,32 @@ def deleteBook(request, book_id):
     book.delete()
     return redirect('initial:book_list')
     
+def updateBook(request, book_id):
+    book_to_update = Book.objects.get(id=book_id)
+    
+    if request.method == 'POST':
+        formBook = UpdateBookForm(request.POST)
+        if formBook.is_valid():
+            infoBook = formBook.cleaned_data
+            book_to_update.isbn = infoBook['isbn']
+            book_to_update.title = infoBook['title']
+            book_to_update.author=infoBook['author']
+            book_to_update.edition=infoBook['edition']
+            book_to_update.save()
+            return redirect('initial:book_list')
+        else:
+            return render(request, 'initial/update_book.html', {'formBook': formBook})
+        
+    formBook = UpdateBookForm(initial={'isbn':book_to_update.isbn, 'title':book_to_update.title, 'author':book_to_update.author, 'edition':book_to_update.edition})
+    return render(request, 'initial/update_book.html', {'formBook': formBook})
+
+class DetailBook(DetailView):
+    model = Book
+    #fields = []
+    template_name = "initial/CBV/detail_book.html"
+    #context_object_name = 'book'
+    #success_url = reverse_lazy('initial:book_list')
+
 #Client
 def createClient(request):
     #msgLabel = ''
@@ -75,6 +107,20 @@ def deleteClient(request, client_id):
     client.delete()
     return redirect('initial:client_list')
 
+class UpdateClient(UpdateView):
+    model = Client
+    fields = ['dni','lastname','firstname']
+    template_name = "initial/CBV/update_client.html"
+    #context_object_name = 'client'
+    success_url = reverse_lazy('initial:client_list')
+    
+class DetailClient(DetailView):
+    model = Client
+    #fields = []
+    template_name = "initial/CBV/detail_client.html"
+    #context_object_name = 'client'
+    #success_url = reverse_lazy('initial:client_list')
+
 #User
 def createUser(request):
     #msgLabel = ''
@@ -106,3 +152,17 @@ def deleteUser(request, user_id):
     user = User.objects.get(id=user_id)
     user.delete()
     return redirect('initial:user_list')
+
+class UpdateUser(UpdateView):
+    model = User
+    fields = ['fullname','username','userpass']
+    template_name = "initial/CBV/update_user.html"
+    #context_object_name = 'user'
+    success_url = reverse_lazy('initial:user_list')
+    
+class DetailUser(DetailView):
+    model = User
+    #fields = []
+    template_name = "initial/CBV/detail_user.html"
+    #context_object_name = 'user'
+    #success_url = reverse_lazy('initial:client_list')
