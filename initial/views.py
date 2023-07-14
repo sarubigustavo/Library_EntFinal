@@ -9,6 +9,9 @@ from django.views.generic.detail import DetailView
 
 from django.urls import reverse_lazy
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 def initial(request):
@@ -18,6 +21,7 @@ def about(request):
     return render(request, 'initial/about.html')
 
 #Book
+@login_required
 def createBook(request):
     #msgLabel = ''
     if request.method == 'POST':
@@ -43,12 +47,14 @@ def listBook(request):
 
     formBook = FindBookForm()
     return render(request, 'initial/list_book.html', {'formBook': formBook, 'listBook': listBook})
-    
+
+@login_required
 def deleteBook(request, book_id):
     book = Book.objects.get(id=book_id)
     book.delete()
     return redirect('initial:book_list')
-    
+
+@login_required
 def updateBook(request, book_id):
     book_to_update = Book.objects.get(id=book_id)
     
@@ -76,6 +82,7 @@ class DetailBook(DetailView):
     #success_url = reverse_lazy('initial:book_list')
 
 #Client
+@login_required
 def createClient(request):
     #msgLabel = ''
     if request.method == 'POST':
@@ -102,12 +109,14 @@ def listClient(request):
     formClient = FindClientForm()
     return render(request, 'initial/list_client.html', {'formClient': formClient, 'listClient': listClient})
 
+@login_required
 def deleteClient(request, client_id):
     client = Client.objects.get(id=client_id)
     client.delete()
     return redirect('initial:client_list')
 
-class UpdateClient(UpdateView):
+#@login_required 
+class UpdateClient(LoginRequiredMixin, UpdateView):
     model = Client
     fields = ['dni','lastname','firstname']
     template_name = "initial/CBV/update_client.html"
@@ -122,6 +131,7 @@ class DetailClient(DetailView):
     #success_url = reverse_lazy('initial:client_list')
 
 #User
+@login_required
 def createUser(request):
     #msgLabel = ''
     if request.method == 'POST':
@@ -148,12 +158,14 @@ def listUser(request):
     formUser = FindUserForm()
     return render(request, 'initial/list_user.html', {'formUser': formUser, 'listUser': listUser})
 
+@login_required
 def deleteUser(request, user_id):
     user = User.objects.get(id=user_id)
     user.delete()
     return redirect('initial:user_list')
 
-class UpdateUser(UpdateView):
+#@login_required
+class UpdateUser(LoginRequiredMixin, UpdateView):
     model = User
     fields = ['fullname','username','userpass']
     template_name = "initial/CBV/update_user.html"
