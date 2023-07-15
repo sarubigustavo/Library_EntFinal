@@ -24,7 +24,7 @@ Book List
 
 <!--<p>{{msgLabel}}</p>-->
 
-<form action="" method="get">
+<form action="" method="get" enctype='multipart/form-data'>
     {{formBook}}
     <button>Find</button>
 </form>
@@ -33,7 +33,8 @@ Book List
     {%for book in listBook %}
     {% comment "" %}<li>Title: {{book.title}} - Author: {{book.author}} - Isbn: {{book.isbn}} - Edition: {{book.edition}}</li>{% endcomment %}
     <li>
-        {{book}}
+        {% comment "Imprimo todo" %}{{book}}{% endcomment %}
+        {{book.title}} - {{book.author}} - Isbn: {{book.isbn}}
         <a href={% url 'initial:book_detail' book.id %}><button>Detail</button></a>
         <a href={% url 'initial:book_delete' book.id %}><button>Delete</button></a>
         <a href={% url 'initial:book_update' book.id %}><button>Update</button></a>

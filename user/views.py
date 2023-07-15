@@ -48,14 +48,11 @@ def signupUser(request):
 @login_required
 def updateUser(request):
     userextra_data = request.user.userextra
-    #print("2-userextra_data.avatar->", userextra_data.avatar)
-    #print("2-userextra_data.user->", userextra_data.user)
     if request.method == 'POST':
         formUser = UpdateUserForm(request.POST, request.FILES,  instance=request.user)
         if formUser.is_valid():
             #avatar
             fieldAvatar = formUser.cleaned_data.get('avatar')
-            #print("1-fieldAvatar->", fieldAvatar)
             if fieldAvatar:
                 userextra_data.avatar = fieldAvatar
                 userextra_data.save()            
@@ -63,7 +60,6 @@ def updateUser(request):
             return redirect('initial:initial') 
     else:
         formUser = UpdateUserForm(initial={'avatar': userextra_data.avatar}, instance=request.user)
-        #formUser = UpdateUserForm(instance=request.user)
     return render(request, 'user/update_user.html', {'formUser':formUser})
 
 class PasswordUser(LoginRequiredMixin, PasswordChangeView):

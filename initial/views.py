@@ -28,7 +28,7 @@ def createBook(request):
         formBook = CreateBookForm(request.POST)
         if formBook.is_valid():
             infoBook = formBook.cleaned_data
-            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'])
+            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'], createdbyuser=str(request.user))
             book.save()
             #msgLabel =  f'Book "{book.title}" has been created.'
             return redirect('initial:book_list')
@@ -37,7 +37,6 @@ def createBook(request):
         
     formBook = CreateBookForm()
     return render(request, 'initial/create_book.html', {'formBook': formBook})
-    #return render(request, 'initial/create_book.html', {'formBook': formBook, 'msgLabel': msgLabel})
     
 def listBook(request):
     formBook = FindBookForm(request.GET)
@@ -57,21 +56,23 @@ def deleteBook(request, book_id):
 @login_required
 def updateBook(request, book_id):
     book_to_update = Book.objects.get(id=book_id)
-    
     if request.method == 'POST':
-        formBook = UpdateBookForm(request.POST)
+        formBook = UpdateBookForm(request.POST, request.FILES)
         if formBook.is_valid():
             infoBook = formBook.cleaned_data
             book_to_update.isbn = infoBook['isbn']
             book_to_update.title = infoBook['title']
             book_to_update.author=infoBook['author']
             book_to_update.edition=infoBook['edition']
+            book_to_update.createdbyuser=str(request.user)
+            #BookCover
+            if infoBook['bookcover']:
+                book_to_update.bookcover=infoBook['bookcover']
             book_to_update.save()
             return redirect('initial:book_list')
         else:
             return render(request, 'initial/update_book.html', {'formBook': formBook})
-        
-    formBook = UpdateBookForm(initial={'isbn':book_to_update.isbn, 'title':book_to_update.title, 'author':book_to_update.author, 'edition':book_to_update.edition})
+    formBook = UpdateBookForm(initial={'isbn':book_to_update.isbn, 'title':book_to_update.title, 'author':book_to_update.author, 'edition':book_to_update.edition, 'bookcover':book_to_update.bookcover})
     return render(request, 'initial/update_book.html', {'formBook': formBook})
 
 class DetailBook(DetailView):
@@ -89,7 +90,7 @@ def createClient(request):
         formClient = CreateClientForm(request.POST)
         if formClient.is_valid():
             infoClient = formClient.cleaned_data
-            client = Client(dni=infoClient['dni'], lastname=infoClient['lastname'], firstname=infoClient['firstname'])
+            client = Client(dni=infoClient['dni'], lastname=infoClient['lastname'], firstname=infoClient['firstname'], createdbyuser=str(request.user))
             client.save()
             #msgLabel =  f'Book "{book.title}" has been created.'
             return redirect('initial:client_list')

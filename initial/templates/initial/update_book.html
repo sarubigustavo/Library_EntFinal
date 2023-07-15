@@ -18,7 +18,7 @@ Book Update
 {% endblock h1_header %}
 
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" enctype='multipart/form-data'>
     {% csrf_token %}
     <table>
         {{formBook}} {% comment "si fuera CBV" %}form{% endcomment %}
