@@ -46,6 +46,9 @@
 
                 <div class="col-md-3 text-end">
                     {% if request.user.is_authenticated %}
+                    {% if request.user.userextra.avatar %}
+                        <img src={{request.user.userextra.avatar.url}} alt="" height='40px'>
+                    {% endif %}
                     <a  class="btn btn-outline-secondary" href={% url 'user:user_update' %}>{{request.user.username}}</a>
                     <!--<a href={% url 'user:user_logout' %}><button type="button" class="btn btn-outline-primary">Logout</button></a>-->
                     <a href={% url 'user:user_logout' %}><button type="button" class="btn btn-outline-secondary">Logout</button></a>

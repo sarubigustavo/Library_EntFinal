@@ -18,7 +18,7 @@ User Update: {{user.first_name}} {{user.last_name}}
 {% endblock h1_header %}
 
 {% block content %}
-<form action={% url 'user:user_update' %} method="post">
+<form action={% url 'user:user_update' %} method="post" enctype='multipart/form-data'>
     {% csrf_token %}
     <table>
         {{formUser}}

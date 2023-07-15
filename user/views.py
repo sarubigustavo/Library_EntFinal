@@ -51,7 +51,7 @@ def updateUser(request):
     #print("2-userextra_data.avatar->", userextra_data.avatar)
     #print("2-userextra_data.user->", userextra_data.user)
     if request.method == 'POST':
-        formUser = UpdateUserForm(request.POST, instance=request.user)
+        formUser = UpdateUserForm(request.POST, request.FILES,  instance=request.user)
         if formUser.is_valid():
             #avatar
             fieldAvatar = formUser.cleaned_data.get('avatar')
