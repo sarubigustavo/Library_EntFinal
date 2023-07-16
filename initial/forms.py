@@ -7,6 +7,7 @@ class BaseBookForm(forms.Form):
     author = forms.CharField(max_length=20)
     edition = forms.DateField(required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={'class': 'datepicker', 'placeholder': 'DD/MM/YYYY'}), input_formats=('%d/%m/%Y', ))
     bookcover = forms.ImageField(required=False)
+    description = forms.CharField(max_length=100, required=False)
     
 class CreateBookForm(BaseBookForm):
     ...
@@ -23,6 +24,8 @@ class BaseClientForm(forms.Form):
     dni = forms.IntegerField()
     lastname = forms.CharField(max_length=20)
     firstname = forms.CharField(max_length=20, required=False)
+    email = forms.CharField(max_length=20, required=False)
+    comments = forms.CharField(max_length=100, required=False)
     
 class CreateClientForm(BaseClientForm):
     ...

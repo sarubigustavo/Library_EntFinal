@@ -28,7 +28,7 @@ def createBook(request):
         formBook = CreateBookForm(request.POST)
         if formBook.is_valid():
             infoBook = formBook.cleaned_data
-            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'], createdbyuser=str(request.user))
+            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'], description=infoBook['description'],createdbyuser=str(request.user))
             book.save()
             #msgLabel =  f'Book "{book.title}" has been created.'
             return redirect('initial:book_list')
@@ -64,6 +64,7 @@ def updateBook(request, book_id):
             book_to_update.title = infoBook['title']
             book_to_update.author=infoBook['author']
             book_to_update.edition=infoBook['edition']
+            book_to_update.description=infoBook['description']
             book_to_update.createdbyuser=str(request.user)
             #BookCover
             if infoBook['bookcover']:
@@ -72,7 +73,7 @@ def updateBook(request, book_id):
             return redirect('initial:book_list')
         else:
             return render(request, 'initial/update_book.html', {'formBook': formBook})
-    formBook = UpdateBookForm(initial={'isbn':book_to_update.isbn, 'title':book_to_update.title, 'author':book_to_update.author, 'edition':book_to_update.edition, 'bookcover':book_to_update.bookcover})
+    formBook = UpdateBookForm(initial={'isbn':book_to_update.isbn, 'title':book_to_update.title, 'author':book_to_update.author, 'edition':book_to_update.edition, 'description':book_to_update.description, 'bookcover':book_to_update.bookcover})
     return render(request, 'initial/update_book.html', {'formBook': formBook})
 
 class DetailBook(DetailView):
@@ -90,7 +91,7 @@ def createClient(request):
         formClient = CreateClientForm(request.POST)
         if formClient.is_valid():
             infoClient = formClient.cleaned_data
-            client = Client(dni=infoClient['dni'], lastname=infoClient['lastname'], firstname=infoClient['firstname'], createdbyuser=str(request.user))
+            client = Client(dni=infoClient['dni'], lastname=infoClient['lastname'], firstname=infoClient['firstname'], email=infoClient['email'], comments=infoClient['comments'], createdbyuser=str(request.user))
             client.save()
             #msgLabel =  f'Book "{book.title}" has been created.'
             return redirect('initial:client_list')
@@ -119,7 +120,7 @@ def deleteClient(request, client_id):
 #@login_required 
 class UpdateClient(LoginRequiredMixin, UpdateView):
     model = Client
-    fields = ['dni','lastname','firstname']
+    fields = ['dni','lastname','firstname','email','comments']
     template_name = "initial/CBV/update_client.html"
     #context_object_name = 'client'
     success_url = reverse_lazy('initial:client_list')
