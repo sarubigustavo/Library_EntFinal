@@ -9,12 +9,12 @@
     <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
     <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link" >Books</a></li>
     <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link active" aria-current="page">Clients</a></li>
-    <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Users</a></li>
+    <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Inbox</a></li>
 </ul>
 {% endblock navigation_menu %}
 
 {% block h1_header %}
-Client Update:  {{client.lastname}}, {{client.Firstname}}
+Client Update:  {{client.lastname}}, {{client.firstname}}
 {% endblock h1_header %}
 
 {% block content %}
@@ -22,6 +22,7 @@ Client Update:  {{client.lastname}}, {{client.Firstname}}
     {% csrf_token %}
     <table>
         {{form}}
+        {{form.media}}
     </table>
     <button>Update</button>
 </form>

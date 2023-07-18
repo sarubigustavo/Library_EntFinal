@@ -1,10 +1,5 @@
 from django.db import models
-#from ckeditor.fields import RichTextField  <-- No me toma el paquete
-#    aun desp de haber,
-#    1) instalado pip install django-ckeditor
-#    2) agregado: "settings.py":  'ckeditor' 
-#    3) corrido "python manage.py collectstatic" por sugerencia de stackoverflow.
-#  Asi que lo hago con TextField como para completar el punto. 
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Book(models.Model):
@@ -13,7 +8,8 @@ class Book(models.Model):
     author = models.CharField(max_length=20)
     edition = models.DateField(null=True)
     bookcover = models.ImageField(upload_to='bookcover_folder', null=True, blank=True)
-    description = models.TextField(null=True)
+    #description = models.TextField(null=True)
+    description = RichTextField(null=True)
     createdbyuser = models.CharField(max_length=20, null=True)
     
     def __str__(self):
@@ -23,12 +19,13 @@ class Client(models.Model):
     dni = models.IntegerField()
     lastname = models.CharField(max_length=20)
     firstname = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=20, null=True)
-    comments = models.TextField(null=True)
+    email = models.EmailField(null=True)
+    #comments = models.TextField(null=True)
+    comments = RichTextField(null=True)
     createdbyuser = models.CharField(max_length=20, null=True)
     
     def __str__(self):
-        return f"LastName: {self.lastname} - FirstName: {self.firstname} - Dni: {self.dni} - email: {self.email} - observaciones: {self.observaciones} - createdbyuser: {self.createdbyuser}"
+        return f"LastName: {self.lastname} - FirstName: {self.firstname} - Dni: {self.dni} - email: {self.email} - comments: {self.comments} - createdbyuser: {self.createdbyuser}"
     
 class User(models.Model):
     fullname = models.CharField(max_length=20)

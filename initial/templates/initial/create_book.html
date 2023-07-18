@@ -9,7 +9,7 @@
     <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
     <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link active" aria-current="page" >Books</a></li>
     <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
-    <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Users</a></li>
+    <li class="nav-item"><a href={% url 'initial:user_list' %} class="nav-link">Inbox</a></li>
 </ul>
 {% endblock navigation_menu %}
 
@@ -25,6 +25,7 @@ Book Creation
     {% csrf_token %}
     <table>
     {{formBook}}
+    {{formBook.media}}
     </table>
     <button>Create</button>
 </form>
