@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+from django.forms import ModelChoiceField
+from .models import UserInbox
+from ckeditor.fields import RichTextFormField
 
 #User
 class CreateUserForm(UserCreationForm):
@@ -29,3 +32,35 @@ class UpdateUserForm(UserChangeForm):
     
 class FindUserForm(forms.Form):
     username = forms.CharField(max_length=20, required=False)
+    
+#Inbox
+class CreateInboxForm(forms.ModelForm):
+    to_user = ModelChoiceField(queryset=User.objects.all(), label="To user")
+    #to_user = User.objects.all()
+    #options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in User.objects.all()]
+    #to_user = ModelChoiceField(queryset=options, label="To user")
+    # def __init__(self, *args, **kwargs):
+    #     super(CreateInboxForm, self).__init__(*args, **kwargs)
+    #     to_user = User.objects.all()
+    #     options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in to_user]
+    #     self.fields['to_user'] = forms.ChoiceField(choices=options)
+
+    
+    class Meta:
+        model = UserInbox
+        fields = ['to_user', 'msg']
+        
+# class CreateInboxForm(forms.Form):
+#     def __init__(self, *args, **kwargs):
+#         super(CreateInboxForm, self).__init__(*args, **kwargs)
+#         to_user = User.objects.all()
+#         options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in to_user]
+#         self.fields['To_user'] = forms.ChoiceField(choices=options)
+#     message = RichTextFormField(required=False)
+    
+#     class Meta:
+#         model = User
+#         fields = ['to_user','message']
+
+class FindInboxForm(forms.Form):
+    msg = forms.CharField(label='Message:', max_length=20, required=False)

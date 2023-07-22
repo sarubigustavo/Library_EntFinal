@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title_head %}
-<title>User Update</title>
+<title>Inbox Create</title>
 {% endblock title_head %}
 
 {% block navigation_menu %}
@@ -9,20 +9,21 @@
     <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
     <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link" >Books</a></li>
     <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
-    <li class="nav-item"><a href={% url 'user:inbox_list' %} class="nav-link active" aria-current="page">Inbox</a></li>
+    <li class="nav-item"><a href={% url 'user:inbox_list' %} class="nav-link">Inbox</a></li>
 </ul>
 {% endblock navigation_menu %}
 
 {% block h1_header %}
-User Update: {{user.fullname}}
+Message From: {{user.first_name}} {{user.last_name}}
 {% endblock h1_header %}
 
 {% block content %}
-<form action={% url 'initial:user_update' user.id %} method="post">
+<form action={% url 'user:inbox_create' %} method="post" enctype='multipart/form-data'>
     {% csrf_token %}
     <table>
-        {{form}}
+        {{formMsg|safe}}
+        {{formMsg.media}}
     </table>
-    <button>Update</button>
+    <button>Create</button>
 </form>
 {% endblock content %}

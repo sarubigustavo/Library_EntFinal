@@ -22,8 +22,8 @@ urlpatterns = [
     
     #User
     path('users/create', views.createUser, name='user_create'),
-    path('users/list', views.listUser, name='user_list'),
+    #path('users/list', views.listUser, name='user_list'),
     path('users/delete/<int:user_id>/', views.deleteUser, name='user_delete'),
-    path('users/update/<int:pk>/', views.UpdateUser.as_view(), name='user_update'), #CBV
+    #path('users/update/<int:pk>/', views.UpdateUser.as_view(), name='user_update'), #CBV
     path('users/detail/<int:pk>/', views.DetailUser.as_view(), name='user_detail'), #CBV
 ]

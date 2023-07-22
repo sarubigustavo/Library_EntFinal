@@ -52,6 +52,3 @@ class CreateUserForm(BaseUserForm):
     
 class UpdateUserForm(BaseUserForm):
     ...
-    
-class FindUserForm(forms.Form):
-    username = forms.CharField(max_length=20, required=False)

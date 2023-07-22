@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 #from django.http import HttpResponse
 
-from initial.forms import CreateBookForm, UpdateBookForm, FindBookForm, CreateClientForm, UpdateClientForm, FindClientForm, CreateUserForm, UpdateUserForm, FindUserForm
+from initial.forms import CreateBookForm, UpdateBookForm, FindBookForm, CreateClientForm, UpdateClientForm, FindClientForm, CreateUserForm, UpdateUserForm
 from initial.models import Book, Client, User
 
 from django.views.generic.edit import UpdateView #, DeleteView, CreateView
@@ -131,8 +131,9 @@ class DetailClient(DetailView):
     template_name = "initial/CBV/detail_client.html"
     #context_object_name = 'client'
     #success_url = reverse_lazy('initial:client_list')
-
-#User
+    
+    
+#User Boorrar
 @login_required
 def createUser(request):
     #msgLabel = ''
@@ -151,14 +152,14 @@ def createUser(request):
     return render(request, 'initial/create_user.html', {'formUser': formUser})
     #return render(request, 'initial/create_user.html', {'formUser': formUser, 'msgLabel': msgLabel})
     
-def listUser(request):
-    formUser = FindUserForm(request.GET)
-    if formUser.is_valid():
-        usernameUser = formUser.cleaned_data['username']
-        listUser = User.objects.filter(username__icontains=usernameUser)
+# def listUser(request):
+#     formUser = FindUserForm(request.GET)
+#     if formUser.is_valid():
+#         usernameUser = formUser.cleaned_data['username']
+#         listUser = User.objects.filter(username__icontains=usernameUser)
 
-    formUser = FindUserForm()
-    return render(request, 'initial/list_user.html', {'formUser': formUser, 'listUser': listUser})
+#     formUser = FindUserForm()
+#     return render(request, 'initial/list_user.html', {'formUser': formUser, 'listUser': listUser})
 
 @login_required
 def deleteUser(request, user_id):

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title_head %}
+<title>Inbox</title>
+{% endblock title_head %}
+
+{% block navigation_menu %}
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
+    <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link" >Books</a></li>
+    <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
+    <li class="nav-item"><a href={% url 'user:inbox_list' %} class="nav-link active" aria-current="page">Inbox</a></li>
+</ul>
+{% endblock navigation_menu %}
+
+{% block h1_header %}
+Inbox List
+{% endblock h1_header %}
+
+{% block content %}
+<button>
+    <a class="navbar-brand" href={% url 'user:inbox_create' %}>Create Message</a>
+</button>
+
+<!--<p>{{msgLabel}}</p>-->
+
+<form action="" method="get">
+    {{formInbox}}
+    <button>Find</button>
+</form>
+
+{% if listInbox %}
+    {%for msgItem in listInbox %}
+    {% comment "" %}<li>From: {{msgItem.user}} - Message: {{msgItem.msg}} - CreatedByUser: {{msgItem.createdbyuser}}</li>{% endcomment %}
+    <li>
+        {% comment "" %}{{msgItem|safe}}{% endcomment %}
+        From: {{msgItem.createdbyuser}}
+        <a href={% url 'user:inbox_detail' msgItem.id %}><button>Detail</button></a>
+        <a href={% url 'user:inbox_delete' msgItem.id %}><button>Delete</button></a>
+    </li>
+    {%endfor%}
+{% else %}
+    <p>No records found.</p>
+{% endif %}
+
+{% endblock content %}
