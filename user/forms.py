@@ -45,7 +45,13 @@ class CreateInboxForm(forms.ModelForm):
     #     options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in to_user]
     #     self.fields['to_user'] = forms.ChoiceField(choices=options)
 
+    def get_user_label(self, user):
+        return f"{user.last_name}, {user.first_name} - username(id): {user.username}({user.id})"
     
+    def __init__(self, *args, **kwargs):
+        super(CreateInboxForm, self).__init__(*args, **kwargs)
+        self.fields['to_user'].label_from_instance = self.get_user_label
+        
     class Meta:
         model = UserInbox
         fields = ['to_user', 'msg']
