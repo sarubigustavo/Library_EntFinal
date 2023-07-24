@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-#from django.http import HttpResponse
 
-from initial.forms import CreateBookForm, UpdateBookForm, FindBookForm, CreateClientForm, UpdateClientForm, FindClientForm, CreateUserForm, UpdateUserForm
-from initial.models import Book, Client, User
+from initial.forms import CreateBookForm, UpdateBookForm, FindBookForm, CreateClientForm, UpdateClientForm, FindClientForm #, CreateUserForm, UpdateUserForm
+from initial.models import Book, Client #, User
 
-from django.views.generic.edit import UpdateView #, DeleteView, CreateView
+from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
 
 from django.urls import reverse_lazy
@@ -117,7 +116,6 @@ def deleteClient(request, client_id):
     client.delete()
     return redirect('initial:client_list')
 
-#@login_required 
 class UpdateClient(LoginRequiredMixin, UpdateView):
     model = Client
     fields = ['dni','lastname','firstname','email','comments']
@@ -130,54 +128,4 @@ class DetailClient(DetailView):
     #fields = []
     template_name = "initial/CBV/detail_client.html"
     #context_object_name = 'client'
-    #success_url = reverse_lazy('initial:client_list')
-    
-    
-#User Boorrar
-@login_required
-def createUser(request):
-    #msgLabel = ''
-    if request.method == 'POST':
-        formUser = CreateUserForm(request.POST)
-        if formUser.is_valid():
-            infoUser = formUser.cleaned_data
-            user = User(fullname=infoUser['fullname'], username=infoUser['username'], userpass=infoUser['userpass'])
-            user.save()
-            #msgLabel =  f'Book "{book.title}" has been created.'
-            return redirect('initial:user_list')
-        else:
-            return render(request, 'initial/create_user.html', {'formUser': formUser})
-        
-    formUser = CreateUserForm()
-    return render(request, 'initial/create_user.html', {'formUser': formUser})
-    #return render(request, 'initial/create_user.html', {'formUser': formUser, 'msgLabel': msgLabel})
-    
-# def listUser(request):
-#     formUser = FindUserForm(request.GET)
-#     if formUser.is_valid():
-#         usernameUser = formUser.cleaned_data['username']
-#         listUser = User.objects.filter(username__icontains=usernameUser)
-
-#     formUser = FindUserForm()
-#     return render(request, 'initial/list_user.html', {'formUser': formUser, 'listUser': listUser})
-
-@login_required
-def deleteUser(request, user_id):
-    user = User.objects.get(id=user_id)
-    user.delete()
-    return redirect('initial:user_list')
-
-#@login_required
-class UpdateUser(LoginRequiredMixin, UpdateView):
-    model = User
-    fields = ['fullname','username','userpass']
-    template_name = "initial/CBV/update_user.html"
-    #context_object_name = 'user'
-    success_url = reverse_lazy('initial:user_list')
-    
-class DetailUser(DetailView):
-    model = User
-    #fields = []
-    template_name = "initial/CBV/detail_user.html"
-    #context_object_name = 'user'
     #success_url = reverse_lazy('initial:client_list')

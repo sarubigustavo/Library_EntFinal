@@ -28,8 +28,6 @@ class BaseClientForm(forms.Form):
     lastname = forms.CharField(max_length=20)
     firstname = forms.CharField(max_length=20, required=False)
     email = forms.EmailField(required=False)
-    #comments = forms.CharField(max_length=100, required=False)
-    #comments = forms.CharField(max_length=100, required=False, widget=CKEditorWidget())
     comments = RichTextFormField(required=False)
     
 class CreateClientForm(BaseClientForm):
@@ -41,14 +39,3 @@ class UpdateClientForm(BaseClientForm):
 class FindClientForm(forms.Form):
     lastname = forms.CharField(max_length=20, required=False)
     
-#User
-class BaseUserForm(forms.Form):
-    fullname = forms.CharField(max_length=20)
-    username = forms.CharField(max_length=20)
-    userpass = forms.CharField(max_length=20)
-    
-class CreateUserForm(BaseUserForm):
-    ...
-    
-class UpdateUserForm(BaseUserForm):
-    ...

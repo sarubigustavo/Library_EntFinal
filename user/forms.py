@@ -36,14 +36,6 @@ class FindUserForm(forms.Form):
 #Inbox
 class CreateInboxForm(forms.ModelForm):
     to_user = ModelChoiceField(queryset=User.objects.all(), label="To user")
-    #to_user = User.objects.all()
-    #options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in User.objects.all()]
-    #to_user = ModelChoiceField(queryset=options, label="To user")
-    # def __init__(self, *args, **kwargs):
-    #     super(CreateInboxForm, self).__init__(*args, **kwargs)
-    #     to_user = User.objects.all()
-    #     options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in to_user]
-    #     self.fields['to_user'] = forms.ChoiceField(choices=options)
 
     def get_user_label(self, user):
         return f"{user.last_name}, {user.first_name} - username(id): {user.username}({user.id})"
@@ -56,17 +48,5 @@ class CreateInboxForm(forms.ModelForm):
         model = UserInbox
         fields = ['to_user', 'msg']
         
-# class CreateInboxForm(forms.Form):
-#     def __init__(self, *args, **kwargs):
-#         super(CreateInboxForm, self).__init__(*args, **kwargs)
-#         to_user = User.objects.all()
-#         options = [(f"{userItem.id}", f"{userItem.last_name}, {userItem.first_name} - username(id): {userItem.username}({userItem.id})") for userItem in to_user]
-#         self.fields['To_user'] = forms.ChoiceField(choices=options)
-#     message = RichTextFormField(required=False)
-    
-#     class Meta:
-#         model = User
-#         fields = ['to_user','message']
-
 class FindInboxForm(forms.Form):
     msg = forms.CharField(label='Message:', max_length=20, required=False)

@@ -1,8 +1,9 @@
 from django.contrib import admin
-from initial.models import User, Book, Client
+from initial.models import Book, Client
+from user.models import UserInbox
 
 # Register your models here.
-admin.site.register(User)
 admin.site.register(Book)
-#admin.site.register(BookExtra)
 admin.site.register(Client)
+admin.site.register(UserInbox)
+#admin.site.register(UserExtra)

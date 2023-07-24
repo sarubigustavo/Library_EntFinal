@@ -18,7 +18,7 @@ La aplicacion permite crear registros de cada entidad de forma independiente.
 2) Django project name: Library_EntFinal
 3) Django app names: initial, users
 4) Herencia de templates en carpeta(Bootstrap): static folder: initial/static - Ubicaciones del Padre: \template\base.html - Hijos: \initial\templates\initial, \user\templates\user
-5) Link al Video: "youtu.be/bBIRjv2x9iY" (agregar al link anterior el "https://" adelante para que el filtro de urls no lo quite.)
+5) Link al Video: "youtu.be/5jnJGbRKsUM" (agregar al link anterior el "https://" adelante para que el filtro de urls no lo quite.)
 6) Pagina acerca de mi: Link 'About' en footer de paginas (\template\initial\about.html) 
 7) Vista de listados: Book, Client y Inbox con sus respectivos crud + detail
 8) Clases Basadas en Vistas: Book_detail, Client_detail, Client_update, User_detail y User_update

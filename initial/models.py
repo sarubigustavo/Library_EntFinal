@@ -27,11 +27,11 @@ class Client(models.Model):
     def __str__(self):
         return f"LastName: {self.lastname} - FirstName: {self.firstname} - Dni: {self.dni} - email: {self.email} - comments: {self.comments} - createdbyuser: {self.createdbyuser}"
     
-class User(models.Model):
-    fullname = models.CharField(max_length=20)
-    username = models.CharField(max_length=20)
-    userpass = models.CharField(max_length=20)
+# class User(models.Model):
+#     fullname = models.CharField(max_length=20)
+#     username = models.CharField(max_length=20)
+#     userpass = models.CharField(max_length=20)
     
-    def __str__(self):
-        return f"Fullname: {self.fullname} - UserName: {self.username} - UserPassword: {self.userpass}"
+#     def __str__(self):
+#         return f"Fullname: {self.fullname} - UserName: {self.username} - UserPassword: {self.userpass}"
     

@@ -33,7 +33,6 @@ Inbox List
     {%for msgItem in listInbox %}
     {% comment "" %}<li>From: {{msgItem.user}} - Message: {{msgItem.msg}} - CreatedByUser: {{msgItem.createdbyuser}}</li>{% endcomment %}
     <li>
-        {% comment "" %}{{msgItem|safe}}{% endcomment %}
         From: {{msgItem.createdbyuser}}
         <a href={% url 'user:inbox_detail' msgItem.id %}><button>Detail</button></a>
         <a href={% url 'user:inbox_delete' msgItem.id %}><button>Delete</button></a>
