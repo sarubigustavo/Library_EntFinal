@@ -24,10 +24,11 @@ def about(request):
 def createBook(request):
     #msgLabel = ''
     if request.method == 'POST':
-        formBook = CreateBookForm(request.POST)
+        formBook = CreateBookForm(request.POST, request.FILES)
         if formBook.is_valid():
             infoBook = formBook.cleaned_data
-            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'], description=infoBook['description'],createdbyuser=str(request.user))
+            book = Book(isbn=infoBook['isbn'], title=infoBook['title'], author=infoBook['author'], edition=infoBook['edition'], 
+                            description=infoBook['description'], bookcover=infoBook['bookcover'], createdbyuser=str(request.user))
             book.save()
             #msgLabel =  f'Book "{book.title}" has been created.'
             return redirect('initial:book_list')

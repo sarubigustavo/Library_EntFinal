@@ -41,6 +41,13 @@ def signupUser(request):
     formUser = CreateUserForm()
     return render(request, 'user/signup_user.html', {'formUser':formUser})
 
+class DetailUser(LoginRequiredMixin, DetailView):
+    model = User
+    fields = ['first_name', 'last_name', 'email', 'shift', 'avatar']
+    template_name = "user/CBV/detail_user.html"
+    #context_object_name = 'user'
+    #success_url = reverse_lazy('initial:client_list')
+
 @login_required
 def updateUser(request):
     userextra_data = request.user.userextra
@@ -51,11 +58,13 @@ def updateUser(request):
             fieldAvatar = formUser.cleaned_data.get('avatar')
             if fieldAvatar:
                 userextra_data.avatar = fieldAvatar
-                userextra_data.save()            
+            fieldShift = formUser.cleaned_data.get('shift')
+            userextra_data.shift = fieldShift
+            userextra_data.save()            
             formUser.save()
-            return redirect('initial:initial') 
+            return redirect('user:user_detail', request.user.id) 
     else:
-        formUser = UpdateUserForm(initial={'avatar': userextra_data.avatar}, instance=request.user)
+        formUser = UpdateUserForm(initial={'avatar': userextra_data.avatar, 'shift': userextra_data.shift}, instance=request.user)
     return render(request, 'user/update_user.html', {'formUser':formUser})
 
 class PasswordUser(LoginRequiredMixin, PasswordChangeView):

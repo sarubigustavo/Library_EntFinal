@@ -49,7 +49,8 @@
                     {% if request.user.userextra.avatar %}
                         <img src={{request.user.userextra.avatar.url}} alt="" height='40px'>
                     {% endif %}
-                    <a  class="btn btn-outline-secondary" href={% url 'user:user_update' %}>{{request.user.username}}</a>
+                    {% comment "" %}<a  class="btn btn-outline-secondary" href={% url 'user:user_update' %}>{{request.user.username}}</a>{% endcomment %}
+                    <a  class="btn btn-outline-secondary" href={% url 'user:user_detail' request.user.id %}>{{request.user.username}}</a>
                     <!--<a href={% url 'user:user_logout' %}><button type="button" class="btn btn-outline-primary">Logout</button></a>-->
                     <a href={% url 'user:user_logout' %}><button type="button" class="btn btn-outline-secondary">Logout</button></a>
                     {% else %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title_head %}
+<title>User Detail</title>
+{% endblock title_head %}
+
+{% block navigation_menu %}
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href={% url 'initial:initial' %} class="nav-link">Initial</a></li>
+    <li class="nav-item"><a href={% url 'initial:book_list' %} class="nav-link" >Books</a></li>
+    <li class="nav-item"><a href={% url 'initial:client_list' %} class="nav-link">Clients</a></li>
+    <li class="nav-item"><a href={% url 'user:inbox_list' %} class="nav-link">Inbox</a></li>
+</ul>
+{% endblock navigation_menu %}
+
+{% block h1_header %}
+User Detail: {{user.first_name}} {{user.last_name}}
+{% endblock h1_header %}
+
+{% block content %}
+<li>First name: {{user.first_name}}</li>
+<li>Last name: {{user.last_name}}</li>
+<li>Email: {{user.email}}</li>
+<li>Shift: {{user.userextra.shift}}</li>
+{% if request.user.is_authenticated %}
+    {% if request.user.userextra.avatar %}
+        <li>Avatar: <img src={{request.user.userextra.avatar.url}} alt="" height='40px'></li>
+    {% endif %}
+{% else %}
+    <li>Avatar: {{request.user.userextra.avatar}}</li>
+{% endif %}
+<button type='button'><a  class="nav-link" href={% url 'user:user_update' %}>Details Update</a></button>
+<button type='button'><a  class="nav-link" href={% url 'user:user_password' %}>Password Update</a></button>
+{% endblock content %}

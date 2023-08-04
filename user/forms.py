@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelChoiceField
-from .models import UserInbox
+from .models import UserInbox, UserExtra
 from ckeditor.fields import RichTextFormField
 
 #User
@@ -12,22 +12,24 @@ class CreateUserForm(UserCreationForm):
     password1 = forms.CharField(label='Password:', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation:', widget=forms.PasswordInput)
     email = forms.EmailField()
+    shift = forms.ChoiceField(choices=UserExtra.Shifts)
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'email', 'shift', 'username', 'password1', 'password2']
         #help_texts = {k:"" for k in fields}
 
 class UpdateUserForm(UserChangeForm):
     first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=20)
     email = forms.EmailField()
+    shift = forms.ChoiceField(choices=UserExtra.Shifts)
     password = None
     avatar = forms.ImageField(required=False)
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'avatar']
+        fields = ['first_name', 'last_name', 'email', 'shift', 'avatar']
         #help_texts = {k:"" for k in fields}
     
 class FindUserForm(forms.Form):
